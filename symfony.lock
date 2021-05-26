@@ -112,6 +112,15 @@
     "nikic/php-parser": {
         "version": "v4.10.5"
     },
+    "phpdocumentor/reflection-common": {
+        "version": "2.2.0"
+    },
+    "phpdocumentor/reflection-docblock": {
+        "version": "5.2.2"
+    },
+    "phpdocumentor/type-resolver": {
+        "version": "1.4.0"
+    },
     "psr/cache": {
         "version": "1.0.1"
     },
@@ -240,6 +249,12 @@
     "symfony/polyfill-php80": {
         "version": "v1.22.1"
     },
+    "symfony/property-access": {
+        "version": "v5.2.4"
+    },
+    "symfony/property-info": {
+        "version": "v5.2.8"
+    },
     "symfony/proxy-manager-bridge": {
         "version": "v5.2.9"
     },
@@ -257,6 +272,36 @@
             "config/routes.yaml"
         ]
     },
+    "symfony/security-bundle": {
+        "version": "5.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "5.1",
+            "ref": "0a4bae19389d3b9cba1ca0102e3b2bccea724603"
+        },
+        "files": [
+            "config/packages/security.yaml"
+        ]
+    },
+    "symfony/security-core": {
+        "version": "v5.2.9"
+    },
+    "symfony/security-csrf": {
+        "version": "v5.2.7"
+    },
+    "symfony/security-guard": {
+        "version": "v5.2.8"
+    },
+    "symfony/security-http": {
+        "version": "v5.2.9"
+    },
+    "symfony/serializer": {
+        "version": "v5.2.9"
+    },
+    "symfony/serializer-pack": {
+        "version": "v1.0.4"
+    },
     "symfony/service-contracts": {
         "version": "v2.4.0"
     },
@@ -266,6 +311,22 @@
     "symfony/string": {
         "version": "v5.2.8"
     },
+    "symfony/translation-contracts": {
+        "version": "v2.4.0"
+    },
+    "symfony/validator": {
+        "version": "4.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.3",
+            "ref": "d902da3e4952f18d3bf05aab29512eb61cabd869"
+        },
+        "files": [
+            "config/packages/test/validator.yaml",
+            "config/packages/validator.yaml"
+        ]
+    },
     "symfony/var-dumper": {
         "version": "v5.2.8"
     },
@@ -274,5 +335,8 @@
     },
     "symfony/yaml": {
         "version": "v5.2.9"
+    },
+    "webmozart/assert": {
+        "version": "1.10.0"
     }
 }
