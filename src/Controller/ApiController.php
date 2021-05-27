@@ -11,7 +11,7 @@ use App\Repository\ObservingDayRepository;
 class ApiController extends AbstractController
 {
     /**
-     * @Route("/auth/signin", name="signin", methods={"POST"})
+     * @Route("/api/auth/signin", name="signin", methods={"POST"})
      */
     public function signIn(Request $request): Response
     {

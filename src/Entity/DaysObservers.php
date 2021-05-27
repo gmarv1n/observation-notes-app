@@ -19,11 +19,13 @@ class DaysObservers
 
     /**
      * @ORM\Column(type="integer", nullable=false)
+     * @ORM\OneToMany(targetEntity="Observer", mappedBy="id")
      */
     private $observer_id;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
+     * @ORM\OneToMany(targetEntity="ObservingDay", mappedBy="id")
      */
     private $observing_day_id;
 
@@ -44,12 +46,12 @@ class DaysObservers
         return $this;
     }
 
-    public function getObservingDyaId()//: ?string
+    public function getObservingDayId()//: ?string
     {
-        return $this->observer_id;
+        return $this->observing_day_id;
     }
 
-    public function setObservingDyaId($observing_day_id): self
+    public function setObservingDayId($observing_day_id): self
     {
         $this->observing_day_id = $observing_day_id;
 

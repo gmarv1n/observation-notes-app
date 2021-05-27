@@ -29,5 +29,7 @@ fos_rest:
 #        messages:
 #            App\Exception\MyException: Forbidden area.
   format_listener:
+    enabled: true
     rules:
-       - { path: ^/api, prefer_extension: true, fallback_format: json, priorities: [ json ] }
+       - { path: ^/api/*, prefer_extension: true, fallback_format: json, priorities: [ json ] } 
+       - { path: '^/api/auth/signin', stop: true }
