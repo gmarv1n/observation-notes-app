@@ -4,7 +4,8 @@ namespace App\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\DaysObjects;
-use App\Repository\ObservingObjectFixtures;
+use App\DataFixtures\ObservingObjectFixtures;
+use App\DataFixtures\ObservingDayFixtures;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use App\Repository\ObservingObjectRepository;
 use App\Repository\ObservingDayRepository;
@@ -62,6 +63,7 @@ class DaysObjectsFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [
+            ObservingDayFixtures::class,
             ObservingObjectFixtures::class,
         ];
     }

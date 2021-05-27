@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @Table(name="observer")
  * @UniqueEntity(fields={"observer_name"}, message="Observer with this name already exists")
  */
+
 class Observer implements UserInterface
 {
     /**

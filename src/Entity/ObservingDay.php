@@ -18,11 +18,6 @@ class ObservingDay
     private $id;
 
     /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
-    private $observer_id;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $date;
@@ -35,18 +30,6 @@ class ObservingDay
     public function getId()
     {
         return $this->id;
-    }
-
-    public function getObserverId()//: ?string
-    {
-        return $this->observer_id;
-    }
-
-    public function setObserverId($observer_id): self
-    {
-        $this->observer_id = $observer_id;
-
-        return $this;
     }
 
     public function getDate(): ?\DateTimeInterface

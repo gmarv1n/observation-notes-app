@@ -22,27 +22,22 @@ class ObservingObjectFixtures extends Fixture implements DependentFixtureInterfa
         $observingDays = $this->observingDayRepository->findAll();
 
         $mars = new ObservingObject();
-        $mars->setDayId($observingDays[0]->getId());
         $mars->setObjectName("Mars");
         $mars->setObjectDescription("The Mars didn't shown anything."); // d0 ob0
 
         $jupiter = new ObservingObject();
-        $jupiter->setDayId($observingDays[0]->getId());
         $jupiter->setObjectName("Jupiter");
         $jupiter->setObjectDescription("Jupiter was awesome."); // d0 ob1
 
         $orion = new ObservingObject();
-        $orion->setDayId($observingDays[1]->getId());
         $orion->setObjectName("Orion nebula");
         $orion->setObjectDescription("It was greyscale, but with huge amount of details."); // d1 ob2
 
         $california = new ObservingObject();
-        $california->setDayId($observingDays[2]->getId());
         $california->setObjectName("California nebula");
         $california->setObjectDescription("It wasn't able to see anything because of light pollution."); // d2 ob3
 
         $moon = new ObservingObject();
-        $moon->setDayId($observingDays[2]->getId());
         $moon->setObjectName("Moon");
         $moon->setObjectDescription("The only object seen on the sky."); // d2 ob4
 

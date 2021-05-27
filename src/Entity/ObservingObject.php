@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping\Table;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ObservingObjectRepository")
- * @Table(name="observing_item")
+ * @Table(name="observing_object")
  */
 class ObservingObject
 {
@@ -16,11 +16,6 @@ class ObservingObject
      * @ORM\Column(type="integer")
      */
     private $id;
-
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
-    private $day_id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
@@ -35,18 +30,6 @@ class ObservingObject
     public function getId()
     {
         return $this->id;
-    }
-
-    public function getDayId()//: ?string
-    {
-        return $this->day_id;
-    }
-
-    public function setDayId($dayId): self
-    {
-        $this->day_id = $dayId;
-
-        return $this;
     }
 
     public function getObjectName(): ?String
