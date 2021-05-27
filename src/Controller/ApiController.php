@@ -21,7 +21,7 @@ class ApiController extends AbstractController
     }
 
     /**
-     * @Route("/logout", name="logout", methods={"GET"})
+     * @Route("/signout", name="logout")
      */
     public function logout(Request $request): Response
     {

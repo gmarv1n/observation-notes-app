@@ -10,12 +10,32 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        main:
+        # main:
+        #     anonymous: lazy
+        #     json_login:
+        #         check_path: signin
+        #         success_handler: lexik_jwt_authentication.handler.authentication_success
+        #         failure_handler: lexik_jwt_authentication.handler.authentication_failure
+        #     logout:
+        #         path: logout
+                
+        login:
+            pattern:  ^/api/auth
+            stateless: true
             anonymous: lazy
             json_login:
                 check_path: signin
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
             logout:
                 path: logout
+        api:
+            pattern:   ^/api
+            stateless: true
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator    
+
             # guard:
             #     authenticators:
             #         - App\Security\LoginFormAuthenticator
@@ -31,6 +51,10 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/api/auth/signup, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/auth/signin, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/signout, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
     encoders:
         # use your user class name here
         App\Entity\Observer:

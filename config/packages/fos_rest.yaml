@@ -31,5 +31,6 @@ fos_rest:
   format_listener:
     enabled: true
     rules:
+      #  - { path: '^/api/auth/signin', stop: true }
        - { path: ^/api/*, prefer_extension: true, fallback_format: json, priorities: [ json ] } 
-       - { path: '^/api/auth/signin', stop: true }
+       - { path: '/signout', stop: true }
