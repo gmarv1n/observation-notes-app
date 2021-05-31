@@ -6,24 +6,42 @@ use App\Form\ObserverType;
 use App\Controller\AbstractRestController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use FOS\RestBundle\Controller\Annotations\Post;
-use FOS\RestBundle\Controller\Annotations\Get;
+use FOS\RestBundle\Controller\Annotations as Rest;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class RestTestController extends AbstractRestController
+class AuthController extends AbstractRestController
 {
     /**
-     * @Post("/api/test", name="test")
+     * @Rest\Post("/api/test", name="test")
      */
+    
     public function test(Request $request): Response
     {
         $data = $request->request->get("test");
 
         return $this->json($data, 200);
     }
+    /**
+     * @Route("/api/auth/signin", name="signin", methods={"POST"})
+     */
+    public function signIn(Request $request): Response
+    {
+        $user = $this->getUser();
+        
+        return $this->json($user, 200);
+    }
 
     /**
-     * @Post("/api/auth/signup", name="signup")
+     * @Route("/signout", name="logout")
+     */
+    public function signOut(Request $request): Response
+    {
+        return $this->json(["Message" => "Logged out"], 200);
+    }
+
+    /**
+     * @Rest\Post("/api/auth/signup", name="signup")
      */
     public function signUp(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {

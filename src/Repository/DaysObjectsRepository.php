@@ -11,4 +11,27 @@ class DaysObjectsRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, DaysObjects::class);
     }
+
+    public function findRelationByObjectId($objectId): ?DaysObjects {
+
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.observing_object_id = :id')
+            ->setParameter('id', $objectId)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
+    public function deleteRelationByObjectId($objectId) 
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'DELETE App\Entity\DaysObjects od 
+            WHERE od.id = :objectId'
+        )->setParameter('objectId', $objectId);
+
+        // returns an array 
+        return $query->getResult();
+    }
 }
