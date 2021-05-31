@@ -44,10 +44,19 @@ class DaysObserversService
         $dayId = $day->getId();
         $dayRelation = $this->daysObserversRepository->findByDayId($dayId);
 
+        if ($dayRelation == null) {
+            return false;
+        }
+
         if ($this->user->getId() != $dayRelation->getObserverId()) {
             return false;
         }
 
         return true;
+    }
+
+    public function deleteRealtion($day) 
+    {
+        $this->daysObserversRepository->deleteDayRelation($day->getId());
     }
 }

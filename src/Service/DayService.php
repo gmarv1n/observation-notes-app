@@ -38,7 +38,7 @@ class DayService
         $day->setDate(new \DateTime());
         $day->setDayDescription($form->get("day_description")->getData());
 
-        $daysObj = new DaysObservers();
+        $daysObs = new DaysObservers();
         
 
         $this->entityManager->persist($day);
@@ -47,10 +47,10 @@ class DayService
         /** @var Observer */
         $user = $this->security->getUser();
 
-        $daysObj->setObservingDayId($day->getId());
-        $daysObj->setObserverId($user->getId());
+        $daysObs->setObservingDayId($day->getId());
+        $daysObs->setObserverId($user->getId());
 
-        $this->entityManager->persist($daysObj);
+        $this->entityManager->persist($daysObs);
         $this->entityManager->flush();
 
         return $day;
@@ -71,5 +71,10 @@ class DayService
         $days =  $this->dayRepository->findObserversDays($this->observer->getId());
         
         return $days;
+    }
+
+    public function deleteDay($day)
+    {
+        $this->dayRepository->deleteDay($day->getId());
     }
 }

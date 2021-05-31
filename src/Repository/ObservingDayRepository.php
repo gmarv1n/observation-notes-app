@@ -36,4 +36,17 @@ class ObservingDayRepository extends ServiceEntityRepository
         // returns an array 
         return $query->getResult();
     }
+
+    public function deleteDay($dayId) 
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'DELETE App\Entity\ObservingDay od 
+            WHERE od.id = :dayId'
+        )->setParameter('dayId', $dayId);
+
+        // returns an array 
+        return $query->getResult();
+    }
 }

@@ -45,7 +45,7 @@ class ObservingObject
 
     public function getObjectDescription(): ?String
     {
-        return $this->day_description;
+        return $this->object_description;
     }
 
     public function setObjectDescription(string $object_description): self

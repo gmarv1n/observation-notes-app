@@ -35,10 +35,15 @@ class DaysController extends AbstractRestController
     public function editDay(Request $request, $id): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
-
         /** @var ObservingDayRepository */
         $rep = $entityManager->getRepository(ObservingDay::class);
         $day = $rep->findById($id);
+
+        if ($day == null) {
+            $view = $this->view("No such day", 200);
+            return $this->handleView($view);
+            exit;
+        }
 
         if ($this->daysObsService->checkDayToObserverRelation($day)) {
             $form = $this->buildDayForm($request, ['method' => 'PUT']);
@@ -48,6 +53,7 @@ class DaysController extends AbstractRestController
             $view = $this->view($day, 200);
             return $this->handleView($view);
         }
+
         $view = $this->view("You don't have a observe day with that ID", 200);
         return $this->handleView($view);
     }
@@ -83,16 +89,61 @@ class DaysController extends AbstractRestController
     /**
      * @Rest\Get("/{id}", name="showday")
      */
-    public function showDay(ObservingDay $day): Response {
+    public function showDay($id): Response 
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        /** @var ObservingDayRepository */
+        $rep = $entityManager->getRepository(ObservingDay::class);
+        $day = $rep->findById($id);
 
-        $view = $this->view($day, 200);
+        if ($day != null) {
+            if ($this->daysObsService->checkDayToObserverRelation($day)) {
+                $view = $this->view($day, 200);
+                return $this->handleView($view);
+            }
+        }
+
+        $message = "";
+        if ($day != null) {
+            $message = sprintf("You didn't made any ebservations on the day with ID %s", $day->getId());
+        } else {
+            $message = "There is no such day";
+        }
+
+        $view = $this->view($message, 200);
 
         return $this->handleView($view);
     }
 
+    /**
+     * @Rest\Delete("/{id}", name="deleteday")
+     */
+    public function deleteDay($id): Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        /** @var ObservingDayRepository */
+        $rep = $entityManager->getRepository(ObservingDay::class);
+        $day = $rep->findById($id);
+
+        if ($day == null) {
+            $view = $this->view("No such day", 200);
+            return $this->handleView($view);
+            exit;
+        }
+
+        if ($this->daysObsService->checkDayToObserverRelation($day)) {
+            $this->dayService->deleteDay($day);
+            $this->daysObsService->deleteRealtion($day);
+
+            $view = $this->view(sprintf("Day with ID %s deleted", $id), 200);
+            return $this->handleView($view);
+        }
+
+        $view = $this->view("You don't have an observing day with that ID", 200);
+        return $this->handleView($view);
+    }
+
     
-
-
     private function buildDayForm(Request $request, array $options = [])
     {
         $form = $this->buildRestForm(ObservingDayType::class, null, $options);
@@ -114,5 +165,6 @@ class DaysController extends AbstractRestController
             exit;
         }
     }
+    
 
 }

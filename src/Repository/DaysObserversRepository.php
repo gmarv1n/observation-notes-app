@@ -32,4 +32,17 @@ class DaysObserversRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    public function deleteDayRelation($dayId) 
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'DELETE App\Entity\DaysObservers do
+            WHERE do.observing_day_id = :dayId'
+        )->setParameter('dayId', $dayId);
+
+        // returns an array 
+        return $query->getResult();
+    }
 }
