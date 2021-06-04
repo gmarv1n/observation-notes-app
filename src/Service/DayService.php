@@ -77,4 +77,9 @@ class DayService
     {
         $this->dayRepository->deleteDay($day->getId());
     }
+
+    public function getDayById($id): ObservingDay
+    {
+        return $this->dayRepository->findById($id);
+    }
 }

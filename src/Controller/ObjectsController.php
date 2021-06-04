@@ -12,6 +12,7 @@ use App\Service\ObjectService;
 use App\Service\DaysObjectsService;
 use App\Service\DaysObserversService;
 use App\Form\ObservingObjectType;
+use App\Service\NewObjectService;
 
 
 /**
@@ -35,31 +36,37 @@ class ObjectsController extends AbstractRestController
     /**
      * @Rest\Get("/{id}", name="showobject")
      */
-    public function showbject($id): Response 
+    public function showbject($id, NewObjectService $objsrvc): Response 
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        /** @var ObservingObjectRepository */
-        $objectRep = $entityManager->getRepository(ObservingObject::class);
-        $object = $objectRep->findById($id);
+        // $entityManager = $this->getDoctrine()->getManager();
+        // /** @var ObservingObjectRepository */
+        // $objectRep = $entityManager->getRepository(ObservingObject::class);
+        // $object = $objectRep->findById($id);
 
-        if ($object == null) {
-            $view = $this->view("No such object", 200);
-            return $this->handleView($view);
-            exit;
+        // if ($object == null) {
+        //     $view = $this->view("No such object", 200);
+        //     return $this->handleView($view);
+        //     exit;
+        // }
+        // $dayObj = $this->daysObjService->getObjectToDayRelation($object);
+
+        // /** @var ObservingDayRepository */
+        // $dayRep = $entityManager->getRepository(ObservingDay::class);
+        // $day = $dayRep->findById($dayObj->getObservingDayId());
+
+        // if ($this->daysObsService->checkDayToObserverRelation($day)) {
+        //     $view = $this->view($object, 200);
+        //     return $this->handleView($view);
+        // }
+
+        // $view = $this->view(sprintf("Object with ID %s is not your object", $id), 200);
+        // return $this->handleView($view);
+
+        $object = $objsrvc->getObjectorNull($id);
+        if ($object === null) {
+            return $this->handleView($this->view(sprintf("Object with ID %s is not your object or not exists", $id), 406));
         }
-        $dayObj = $this->daysObjService->getObjectToDayRelation($object);
-
-        /** @var ObservingDayRepository */
-        $dayRep = $entityManager->getRepository(ObservingDay::class);
-        $day = $dayRep->findById($dayObj->getObservingDayId());
-
-        if ($this->daysObsService->checkDayToObserverRelation($day)) {
-            $view = $this->view($object, 200);
-            return $this->handleView($view);
-        }
-
-        $view = $this->view(sprintf("Object with ID %s is not your object", $id), 200);
-        return $this->handleView($view);
+        return $this->handleView($this->view($object), 200);   
     }
 
     /**
